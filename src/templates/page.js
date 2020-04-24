@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { graphql } from "gatsby";
+import Img from '../components/Img'
 
 const Page = props => {
   const {
@@ -8,9 +9,17 @@ const Page = props => {
     },
   } = props;
 
+  console.log(page)
+
+  useEffect(() => {
+    console.log('HELLUREI?!!?')
+  }, [])
+
   return (
     <div>
       <h2>{decodeURI(page.title)}</h2>
+      <div dangerouslySetInnerHTML={{__html: page.content}} />
+      {page.featuredImage && <Img data={page.featuredImage} />}
     </div>
   );
 };
@@ -22,6 +31,12 @@ export const query = graphql`
     wpapi {
       page(id: $id) {
         title
+        content
+        featuredImage {
+          srcSet
+          altText
+          title
+        }
       }
     }
   }

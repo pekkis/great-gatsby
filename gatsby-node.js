@@ -28,6 +28,15 @@ exports.createPages = async ({ graphql, actions }) => {
   const query = await graphql(`
     query RootDataQuery {
       wpapi {
+
+        posts {
+          nodes {
+            uri
+            slug
+            id
+          }
+        }
+        
         pages {
           nodes {
             id
